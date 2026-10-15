@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6efe2">
+  <meta name="description" content="دعوة عيد ميلاد خاصة جدًا للدكتورة هدى">
+  <title>إلى د. هدى — دعوة عيد ميلاد</title>
+
+  <!-- Fonts: Amiri (elegant Arabic serif) + Cairo (clean UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════
+       [EDIT] BACKGROUND MUSIC
+       Put your licensed "Happy Birthday" instrumental at:
+           assets/audio/happy-birthday.mp3
+       Nothing else needs to change. If the file is missing the site
+       still works — the music button simply hides itself.
+       ════════════════════════════════════════════════════════════ -->
+  <audio id="bgMusic" loop preload="auto" src="assets/audio/happy-birthday.mp3"></audio>
+
+  <!-- Shared particle canvas (dust / petals / gold sparkles) -->
+  <canvas id="fxCanvas" aria-hidden="true"></canvas>
+
+  <!-- Warm cinematic light used during scene transitions -->
+  <div id="bloom" aria-hidden="true"></div>
+
+  <!-- Music toggle (appears only when music actually plays) -->
+  <button id="musicToggle" class="music-toggle" type="button" hidden
+          aria-label="تشغيل أو إيقاف الموسيقى" aria-pressed="true">
+    <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/>
+      <path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"
+            stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </svg>
+    <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/>
+      <path d="M16.5 9.5l5 5M21.5 9.5l-5 5"
+            stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SCENE 1 — THE SEALED LUXURY INVITATION
+       ════════════════════════════════════════════════════════════ -->
+  <section id="scene1" class="scene scene--envelope">
+    <div class="scene1-light" aria-hidden="true"></div>
+
+    <div class="envelope-stage">
+
+      <!-- Fine gold line-art cake motif, like an embossed ornament -->
+      <svg class="cake-motif" viewBox="0 0 140 112" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M18 98 Q70 106 122 98" opacity=".8"/>
+        <rect x="34" y="66" width="72" height="30" rx="4"/>
+        <path d="M36 72 q6 8 11.4 0 q6 8 11.4 0 q6 8 11.4 0 q6 8 11.4 0 q6 8 11.4 0 q6 8 11.4 0"
+              stroke-width="1.3" opacity=".65"/>
+        <rect x="47" y="42" width="46" height="24" rx="4"/>
+        <path d="M60 42V30M70 42V28M80 42V30"/>
+        <path class="motif-flame" d="M60 26q-3.4-4.4 0-9q3.4 4.6 0 9Z" fill="currentColor" stroke="none"/>
+        <path class="motif-flame" style="animation-delay:.7s" d="M70 24q-3.4-4.4 0-9q3.4 4.6 0 9Z" fill="currentColor" stroke="none"/>
+        <path class="motif-flame" style="animation-delay:1.4s" d="M80 26q-3.4-4.4 0-9q3.4 4.6 0 9Z" fill="currentColor" stroke="none"/>
+      </svg>
+
+      <p class="envelope-kicker">دعوة مختومة بحب</p>
+
+      <div class="envelope-scene">
+        <div class="env-parallax">
+          <div class="env-float">
+            <div class="envelope" id="envelope">
+
+              <!-- blush inner lining (visible when the flap opens) -->
+              <div class="env-back"></div>
+
+              <!-- warm light rising from inside -->
+              <div class="env-glow" id="envGlow"></div>
+
+              <!-- the invitation card that slides out -->
+              <div class="env-letter paper-look" id="envLetter">
+                <span class="mini-frame"></span>
+                <div class="env-letter-inner">
+                  <span class="monogram">هدى</span>
+                  <span class="mini-text">كل سنة وإنتِ طيبة</span>
+                </div>
+              </div>
+
+              <!-- front pocket with the V seam -->
+              <div class="env-front paper-look">
+                <svg class="seams" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M0 1.4 L50 63.4 L100 1.4" fill="none" stroke="rgba(110,70,45,.16)"
+                        stroke-width="2.4" vector-effect="non-scaling-stroke"/>
+                  <path d="M0 0 L50 62 L100 0" fill="none" stroke="rgba(176,128,58,.75)"
+                        stroke-width="1" vector-effect="non-scaling-stroke"/>
+                </svg>
+                <div class="env-address">
+                  <!-- [EDIT] The name written on the envelope -->
+                  <p class="to">إلى الدكتورة هدى...</p>
+                  <p class="sub">شخص مميز جدًا في قلبي ❤️</p>
+                </div>
+              </div>
+
+              <!-- the opening flap -->
+              <div class="env-flap" id="envFlap">
+                <div class="flap-face flap-front paper-look">
+                  <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M0 0 L50 100 L100 0" fill="none" stroke="rgba(176,128,58,.6)"
+                          stroke-width="1" vector-effect="non-scaling-stroke"/>
+                  </svg>
+                </div>
+                <div class="flap-face flap-back">
+                  <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M0 0 L50 100 L100 0" fill="none" stroke="rgba(176,128,58,.4)"
+                          stroke-width="1" vector-effect="non-scaling-stroke"/>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- wax seal -->
+              <div class="env-seal" id="envSeal"><span>هـ</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="env-shadow" aria-hidden="true"></div>
+      </div>
+
+      <button id="openInviteBtn" class="btn btn--gold" type="button">
+        افتحي مفاجأتك يا دكتورة هدى 🎁
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SCENE 2 — THE BIRTHDAY REVEAL (3D cake)
+       ════════════════════════════════════════════════════════════ -->
+  <section id="scene2" class="scene scene--reveal is-hidden">
+    <div class="reveal-card paper-look">
+      <span class="card-frame" aria-hidden="true"></span>
+
+      <p class="eyebrow" data-reveal>المفاجأة بدأت…</p>
+      <!-- [EDIT] Main greeting -->
+      <h1 data-reveal>كل سنة وإنتِ طيبة يا أحلى دكتورة هدى ❤️</h1>
+      <!-- [EDIT] Intro lines -->
+      <p class="lead" data-reveal>
+        النهارده مش يوم عادي...<br>
+        النهارده عيد ميلاد إنسانة ليها مكانة خاصة جدًا في قلبي.
+      </p>
+
+      <!-- The 3D cake renders here (Three.js) -->
+      <div id="cakeCanvasHost" class="cake-host" data-reveal></div>
+
+      <!-- Offline / no-WebGL fallback cake -->
+      <div id="cakeFallback" class="cake-fallback" hidden aria-hidden="true">
+        <svg viewBox="0 0 300 250">
+          <ellipse cx="150" cy="224" rx="112" ry="11" fill="#eadbc2"/>
+          <rect x="58" y="150" width="184" height="68" rx="8" fill="#f7eedd" stroke="#c9a35f" stroke-width="1.5"/>
+          <path d="M60 156 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0"
+                fill="none" stroke="#e3b8b4" stroke-width="3"/>
+          <rect x="94" y="92" width="112" height="58" rx="8" fill="#efc7c3" stroke="#c9a35f" stroke-width="1.5"/>
+          <text x="150" y="194" text-anchor="middle" font-family="Amiri, serif"
+                font-size="27" fill="#a8823e" font-weight="700">هدى</text>
+          <g>
+            <rect x="117" y="58" width="9" height="34" rx="2" fill="#f7f0e1" stroke="#d5ad63"/>
+            <rect x="145" y="54" width="9" height="38" rx="2" fill="#f7f0e1" stroke="#d5ad63"/>
+            <rect x="173" y="58" width="9" height="34" rx="2" fill="#f7f0e1" stroke="#d5ad63"/>
+          </g>
+          <g class="ffb-flame" transform="translate(121.5,50)">
+            <circle r="9" fill="rgba(255,190,90,.3)"/>
+            <path d="M0 6 C-4 1 -3 -4 0 -9 C3 -4 4 1 0 6Z" fill="#f2a94f"/>
+          </g>
+          <g class="ffb-flame" transform="translate(149.5,46)">
+            <circle r="9" fill="rgba(255,190,90,.3)"/>
+            <path d="M0 6 C-4 1 -3 -4 0 -9 C3 -4 4 1 0 6Z" fill="#f2a94f"/>
+          </g>
+          <g class="ffb-flame" transform="translate(177.5,50)">
+            <circle r="9" fill="rgba(255,190,90,.3)"/>
+            <path d="M0 6 C-4 1 -3 -4 0 -9 C3 -4 4 1 0 6Z" fill="#f2a94f"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="scene2-actions" data-reveal>
+        <button id="blowCandlesBtn" class="btn btn--blush" type="button" disabled>
+          اطفي الشموع وتمني أمنية ✨
+        </button>
+        <p id="wishNote" class="wish-note" hidden>أمنيتك اتسجلت في القلب... ويا رب تتحق أجمل أمنية ✨</p>
+        <button id="toLetterBtn" class="btn btn--gold" type="button" hidden>
+          افتحي رسالتي ليكي 💌
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SCENE 3 — THE LETTER, THE PHOTO & THE FINAL SURPRISE
+       ════════════════════════════════════════════════════════════ -->
+  <section id="scene3" class="scene scene--letter is-hidden">
+
+    <div class="letter-paper paper-look" id="letterPaper">
+      <i class="crease c1" aria-hidden="true"></i>
+      <i class="crease c2" aria-hidden="true"></i>
+
+      <svg class="letter-ornament" viewBox="0 0 220 20" aria-hidden="true">
+        <path d="M14 10 H92 M128 10 H206" stroke="#c9a35f" stroke-width="1"/>
+        <path d="M110 4 c-3-5-10-3-10 2 0 4 6 7 10 10 4-3 10-6 10-10 0-5-7-7-10-2Z" fill="#cf8a86"/>
+      </svg>
+
+      <div class="letter-body" id="letterBody">
+        <!-- ════════════════════════════════════════════════════
+             [EDIT] THE LETTER — edit any paragraph below freely.
+             Keep them plain text (no HTML tags inside).
+             Each <p data-line> fades in word by word.
+             ════════════════════════════════════════════════════ -->
+        <p data-line data-io>كل سنة وإنتِ طيبة يا دكتورة هدى، يا أجمل وأطيب دكتورة اتعاملت معاها. ❤️</p>
+        <p data-line data-io>يمكن كلمة كل سنة وإنتِ طيبة مش كفاية علشان أوصفلك إنتِ غالية عندي قد إيه، بس أنا حقيقي حابة إن يومك يكون مميز زيك بالظبط.</p>
+        <p data-line data-io>إنتِ مش مجرد دكتورة بالنسبة لي، إنتِ إنسانة ليها مكانة خاصة جدًا في قلبي، ووجودك في حياتي من الحاجات الجميلة اللي أنا ممتنة ليها.</p>
+        <p data-line data-io>معاكي حسيت إن العلاقة ممكن تكون أكبر من مجرد دكتورة ومريضة، وإن في ناس بتدخل حياتنا وتسيب جوانا أثر حلو بيفضل معانا.</p>
+        <p data-line data-io>إنتِ بالنسبالي زي أخت كبيرة، وقريبة من قلبي بطريقة يمكن الكلام نفسه ميقدرش يوصفها.</p>
+        <p data-line data-io>في يوم ميلادك، بتمنالك من كل قلبي سنة جديدة مليانة راحة بال، وفرحة، ونجاح، وصحة، وأيام حلوة شبه قلبك.</p>
+        <p data-line data-io>يارب كل حاجة نفسك فيها تتحقق، وكل تعب تعبتيه تشوفي نتيجته فرحة، وكل يوم جاي يكون أحلى من اللي قبله.</p>
+        <p data-line data-io>أتمنى تفضلي دايمًا مبسوطة، ومطمنة، ومحاطة بناس بتحبك وتقدرك زي ما تستاهلي.</p>
+        <p data-line data-io>شكرًا إنك من الناس اللي ليهم أثر جميل في حياتي، وشكرًا على كل إحساس حلو سبتِيه جوايا من غير ما تحسي.</p>
+        <p data-line data-io>كل سنة وإنتِ بخير يا دكتورة هدى، ويا رب أفضل دايمًا أشوفك مبسوطة وناجحة، وتفضلي دايمًا إنسانة غالية ومميزة في قلبي. ❤️🎂</p>
+        <p data-line data-io>بحبك جدًا، وكل سنة وإنتِ أجمل هدية في يوم ميلادك.</p>
+
+        <!-- Editable signature — you can also type over it directly
+             on the page; it saves automatically in that browser. -->
+        <p class="sign" id="signature" data-io contenteditable="true" spellcheck="false"
+           data-hint="اضغط هنا لتغيير التوقيع — بيتحفظ تلقائيًا">من شخص بيحبك جدًا ❤️</p>
+
+        <!-- ════════════════════════════════════════════════════
+             [EDIT] YOUR PHOTO
+             Replace the file  assets/images/hoda-photo.jpg  with your
+             own photograph (keep the same file name). Nothing else
+             needs to change. If the file is missing, an elegant
+             placeholder is shown instead of a broken image.
+             ════════════════════════════════════════════════════ -->
+        <figure class="memory" data-io>
+          <div class="photo-frame" id="photoFrame">
+            <img id="memoryPhoto" src="./Annotat.png" alt="ذكرى حلوة مع د. هدى" loading="lazy">
+            <div class="photo-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="16" rx="2"/>
+                <circle cx="9" cy="10" r="2"/>
+                <path d="M3 17l5-5 4 4 3-3 6 6"/>
+              </svg>
+              <span>مكان صورتك هنا<br><small>ضعي الصورة في: assets/images/hoda-photo.jpg</small></span>
+            </div>
+          </div>
+          <figcaption>ذكرى حلوة مع إنسانة أغلى من الكلام ❤️</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ─── FINAL LITTLE SURPRISE ─── -->
+    <div class="finale" data-io>
+      <p class="eyebrow">مفاجأة أخيرة</p>
+
+      <div class="giftbox-scene">
+        <div class="gift-shadow" aria-hidden="true"></div>
+        <div class="giftbox" id="giftbox">
+          <div class="gb-face gb-back"></div>
+          <div class="gb-face gb-left"></div>
+          <div class="gb-face gb-right"></div>
+          <div class="gb-face gb-front"></div>
+          <div class="gb-bottom"></div>
+          <div class="gb-glow" aria-hidden="true"></div>
+
+          <div class="gb-lid">
+            <div class="lid-face lf-back"></div>
+            <div class="lid-face lf-left"></div>
+            <div class="lid-face lf-right"></div>
+            <div class="lid-face lf-front"></div>
+            <div class="lid-top"><span class="bow"></span><span class="bow-knot"></span></div>
+            <div class="lid-inner"></div>
+          </div>
+        </div>
+      </div>
+
+      <button id="finalGiftBtn" class="btn btn--gold" type="button">
+        لسه في أمنية أخيرة ليكي 🎁
+      </button>
+
+      <div id="finalMessage" class="final-message paper-look" hidden>
+        <p>يا رب السنة الجديدة من عمرك تكون بداية لكل حاجة حلوة تستاهليها، وتفضلي دايمًا منورة حياة كل اللي حواليكي. ❤️</p>
+        <div class="glow-heart" aria-hidden="true">
+          <svg viewBox="0 0 32 30">
+            <path d="M16 28C9 22.5 2.5 17 2.5 10.2 2.5 5.6 6.2 2 10.6 2c2.3 0 4.4 1.1 5.4 2.9C17 3.1 19.1 2 21.4 2c4.4 0 8.1 3.6 8.1 8.2C29.5 17 23 22.5 16 28Z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">دعوة صُنعت بحب — كل سنة وإنتِ طيبة يا د. هدى</footer>
+  </section>
+
+  <script>
+    // CDN resilience: if jsDelivr is blocked, retry from unpkg
+    window.__gsapFallback = function () {
+      var s = document.createElement('script');
+      s.src = 'https://unpkg.com/gsap@3.12.5/dist/gsap.min.js';
+      document.head.appendChild(s);
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer onerror="__gsapFallback()"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
